@@ -1,0 +1,2 @@
+g++ -Wall -std=c++11 -D_GLIBCXX_DEBUG -D_CRUN %main-file% -o %execute-file%
+%execute-file%

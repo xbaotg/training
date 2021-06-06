@@ -1,0 +1,2 @@
+g++ -Wall -std=c++11 -fstack-protector-all -D_GLIBCXX_DEBUG -D_RUN %main-file% -o %execute-file%
+%execute-file%

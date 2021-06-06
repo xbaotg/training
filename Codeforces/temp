@@ -1,0 +1,11 @@
+pre1 = suf1
+
+we have: 
+pre2 <= pre1 = suf2 <= suf3
+to be good => pre2 = suf3 = pre1 = suf2 = b1
+
+continue:
+pre3 <= pre2 = suf3 <= suf4
+to be good => pre3 = suf4 = pre2 = suf3 = b1
+
+
