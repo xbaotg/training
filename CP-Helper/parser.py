@@ -257,6 +257,8 @@ def process():
         copyfile(os.path.join(path_file_parser, "template.cpp"), os.path.join(data_dir, "main.cpp"))
 
         os.system(r'dat=`date "+%D %T"` && sed -i "s|\$DATE|${dat}|g" ' + os.path.abspath(os.path.join(data_dir, "main.cpp")))
+        os.system(r'sed -i "s|\$LINK|' + URL  + r'|g" ' + os.path.abspath(os.path.join(data_dir, "main.cpp")))
+
         print("Created folder: " + os.path.abspath(data_dir))
 
         if len(sys.argv) > 2:

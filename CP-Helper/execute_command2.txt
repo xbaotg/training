@@ -1,2 +1,2 @@
-g++ -Wall -std=c++11 -D_GLIBCXX_DEBUG -D_CRUN %main-file% -o %execute-file%
+g++ -Wall -std=c++11 -fsanitize=address,undefined -fstack-protector-all -D_GLIBCXX_DEBUG -D_CRUN -o %execute-file% %main-file% 
 %execute-file%

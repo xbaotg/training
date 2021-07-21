@@ -1,0 +1,2 @@
+g++ %main-file% -o %execute-file%
+%execute-file%

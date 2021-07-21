@@ -1,79 +1,86 @@
+// template {{{
+
 /*
  * Created at: $DATE
+ * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
- * From Viet Nam with Love :D 
- *
+ * From Viet Nam with Love :D
  */
 
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
 
-#define fast_io()      ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define For(i, a, b)   for (int i = int(a); i <= int(b); i++)
-#define Fod(i, a, b)   for (int i = int(a); i >= int(b); i--)
-#define sz(x)          ((int) x.size())
-#define all(x)         (x).begin(), (x).end()
-#define FF             first
-#define SS             second
-#define eb             emplace_back
-#define pb             push_back
-#define endl           '\n'
+#define fast_io() ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define sz(x) ((int)x.size())
+#define all(x) (x).begin(), (x).end()
+#define F first
+#define S second
+#define nl '\n'
 
-using ll = long long;
-using vi = vector<int>;
-using vvi = vector<vector<int>>;
-using pii = pair<int, int>;
+using llong = long long;
 
-const int MOD = 1e9 + 7;
-const int INF = INT_MAX;
-const int MAXN = 1e5;
+int MOD = 1e9 + 7;
+int INF = INT_MAX;
+llong LINF = LLONG_MAX;
+double ESP = 1e-9;
 
-template<class T> void read(T &x) { cin >> x; };
-template<class T> void read(vector<T> &v, int n) { For (i, 0, n - 1) cin >> v[i]; };
-template<class T> void read(vector<T> &v, int f, int t) { For (i, f, t) cin >> v[i]; };
-template<class T> void read(T v[], int n) { For(i, 0, n - 1) cin >> v[i]; }; 
-template<class H, class... T> void read(H &v, T&... args) { read(v); read(args...); };
-
-void dbg_out() { cerr << endl; }
-template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
-template<typename T> void dbg_out(vector<T> a) { for (auto c : a) cerr << ' ' << c; cerr << endl; };
-template<typename T> void dbg_out(T a[]) { for (auto c : a) cerr << ' ' << c; cerr << endl; };
-template<typename T> void dbg_out(vector<T> a, int n) { For (i, 0, n - 1) cerr << ' ' << a[i]; cerr << endl; };
-template<typename T> void dbg_out(T a[], int n) { For (i, 0, n - 1) cerr << ' ' << a[i]; cerr << endl; };
-template<typename T> void dbg_out(vector<T> a, int u, int v) { For (i, u, v) cerr << ' ' << a[i]; cerr << endl; };
-template<typename T> void dbg_out(T a[], int u, int v) { For (i, u, v) cerr << ' ' << a[i]; cerr << endl; };
+void dbg_out() { cerr << nl; };
+void psout() { cout << nl; };
+template < typename T > void read(T & x) { cin >> x; };
+template < typename T > void read(vector <T > & v, int n) { for (int i = 0; i < n; ++i) cin >> v[i]; };
+template < typename T > void read(vector < T > & v, int f, int t) { for (int i = f; i <= t; ++i) cin >> v[i]; };
+template < typename T > void read(T v[], int n) { for (int i = 0; i < n; ++i) cin >> v[i]; };
+template < typename T > void read(T * v, int f, int t) { for (int i = f; i <= t; ++i) cin >> v[i]; };
+template < typename H, typename...T > void read(H & v, T & ...args) { read(v); read(args...); };
+template < typename Head, typename...Tail > void dbg_out(Head H, Tail...T) { cerr << ' ' << H; dbg_out(T...); }
+template < typename T > void dbg_out(vector < T > & a) { for (auto & c: a) cerr << ' ' << c; cerr << nl; };
+template < typename T > void dbg_out(vector < T > & a, int n) { for (int i = 0; i < n; ++i) cerr << ' ' << a[i]; cerr << nl; };
+template < typename T > void dbg_out(vector < T > & a, int u, int v) { for (int i = u; i <= v; ++i) cerr << ' ' << a[i]; cerr << nl; };
+template < typename T > void dbg_out(vector < vector < T >> & a) { cerr << nl; for (auto & v: a) { cerr << "| "; for (auto & vv: v) cerr << vv << " "; cerr << "|" << nl; } };
+template < typename T > void dbg_out(T a[], int n) { for (int i = 0; i < n; ++i) cerr << ' ' << a[i]; cerr << nl; };
+template < typename T > void dbg_out(T a[], int u, int v) { for (int i = u; i <= v; ++i) cerr << ' ' << a[i]; cerr << nl; };
+template < typename T > void dbg_out(set < T > & a) { for (auto c: a) cerr << ' ' << c; cerr << nl; };
+template < typename Y, typename Z > void dbg_out(pair < Y, Z > p) { cerr << p.first << " " << p.second; cerr << nl; }
+template < typename Head, typename...Tail > void psout(Head H, Tail...T) { cout << H; psout(T...); };
+template < typename T > void psout(vector < T > & a, int n) { for (int i = 0; i < n; ++i) cout << a[i] << ' '; };
+template < typename T > void psout(vector < T > & a) { for (auto & c: a) cout << c << ' '; cout << nl; };
+template < typename T > void psout(vector < T > & a, int u, int v) { for (int i = u; i <= v; ++i) cout << a[i] << ' '; cout << nl; };
+template < typename T > void psout(vector < vector < T >> & a) { cout << nl; for (auto & v: a) { for (auto & vv: v) cout << vv << " "; cout << nl; } };
+template < typename T > void psout(T a[], int n) { for (int i = 0; i < n; ++i) cout << a[i] << ' '; };
+template < typename T > void psout(T a[], int u, int v) { for (int i = u; i <= v; ++i) cout << a[i] << ' '; cout << nl; };
+template < typename T > void psout(set < T > & a) { for (auto c: a) cout << c << ' '; cout << nl; };
+template < typename Y, typename Z > void psout(pair < Y, Z > p) { cout << p.first << " " << p.second; }; 
+#define ps(...) psout(__VA_ARGS__)
 
 #if defined(_CRUN) || defined(_RUN)
-#define dbg(...) cerr << "(L:" << __LINE__ << "): " << "[" << #__VA_ARGS__ << "] =", dbg_out(__VA_ARGS__)
+#define pd(...) cerr << "\033[0;31m[" << #__VA_ARGS__ << "]\033[0m =", dbg_out(__VA_ARGS__)
 #else
-#define dbg(...)
+#define pd(...)
 #endif
 
-void print() {};
-template<typename Head, typename... Tail> void print(Head H, Tail... T) { cout << H; print(T...); }; 
-template<typename T> void print(vector<T> a, int n) { For (i, 0, n - 1) cout << a[i] << ' '; }; 
-template<typename T> void print(T a[], int n) { For (i, 0, n - 1) cout << a[i] << ' '; }; 
+#if defined(_CRUN)
+#define c_input() freopen("input", "r", stdin)
+#define c_output() freopen("output", "r", stdin)
+#else
+#define c_input()
+#define c_output()
+#endif
 
-ll add_mod(ll a, ll b) { return ((a % MOD) + (b % MOD)) % MOD; }
-ll sub_mod(ll a, ll b) { return ((a % MOD) - (b % MOD) + MOD) % MOD; }
-ll mul_mod(ll a, ll b) { return ((a % MOD) * (b % MOD)) % MOD; }
-ll lcm(ll a, ll b) { return a * b / __gcd(a, b); }
+int add_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a + b) % MOD; }
+int sub_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a - b + MOD) % MOD; }
+int mul_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (llong(a) * b) % MOD; }
+llong cpow_mod(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans = mul_mod(ans, a); a = mul_mod(a, a); b >>= 1; }; return ans; };
+llong lcm(llong a, llong b) { return a * b / __gcd(a, b); }
+llong cpow(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans *= a; a *= a; b >>= 1; }; return ans; };
 
 void solve();
-/***********************************************************/
+void init();
+bool TESTS = false;
 
-int main() {
-    fast_io();
-
-    #ifdef _CRUN 
-        //freopen("input", "r", stdin);
-    #endif
-
-    int t = 1; 
-    //cin >> t; 
-    while (t--) solve();
-}
+int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i <= T; ++i) solve(); }
+// }}}
+void init() {}
 
 void solve() {
 

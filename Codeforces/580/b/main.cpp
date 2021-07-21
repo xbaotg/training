@@ -1,106 +1,111 @@
+//{{
+/*
+ * Created at: 06/12/21 14:33:16
+ *
+ * FB: https://facebook.com/tgbaodeeptry
+ * From Viet Nam with Love :D 
+ *
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
-#define fast_io        ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define For(i, a, b)   for (int i = int(a); i <= int(b); i++)
-#define Fod(i, a, b)   for (int i = int(a); i >= int(b); i--)
+#define fast_io()      ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define FOR(i, a, b)   for (int i = int(a); i <= int(b); i++)
+#define FOD(i, a, b)   for (int i = int(a); i >= int(b); i--)
 #define sz(x)          ((int) x.size())
-#define ALL(x)         (x).begin(), (x).end()
-#define F              first
-#define S              second
-#define ep             emplace_back
+#define all(x)         (x).begin(), (x).end()
+#define FF             first
+#define SS             second
+#define eb             emplace_back
 #define pb             push_back
+#define endl           '\n'
 
 using ll = long long;
 using vi = vector<int>;
 using vvi = vector<vector<int>>;
 using pii = pair<int, int>;
 
-const int MOD = 1000000007;
+const int MOD = 1e9 + 7;
+const int INF = INT_MAX;
+const int MAXN = 1e5 + 1;
 
-template<class T> void read(T &x) { cin >> x; };
-template<class T> void read(vector<T> &v, int n) { For (i, 0, n - 1) cin >> v[i]; };
-template<class T> void read(vector<T> &v, int f, int t) { For (i, f, t) cin >> v[i]; };
-template<class T> void read(T v[], int n) { For(i, 0, n - 1) cin >> v[i]; }; 
-template<class H, class... T> void read(H &v, T&... args) { read(v); read(args...); };
+template<class T> void re(T &x) { cin >> x; };
+template<class T> void re(vector<T> &v, int n) { FOR (i, 0, n - 1) cin >> v[i]; };
+template<class T> void re(vector<T> &v, int f, int t) { FOR (i, f, t) cin >> v[i]; };
+template<class T> void re(T v[], int n) { FOR(i, 0, n - 1) cin >> v[i]; }; 
+template<class H, class... T> void re(H &v, T&... args) { re(v); re(args...); };
 
-int add_mod(unsigned int a, unsigned int b) { return ((a % MOD) + (b % MOD)) % MOD; }
-int sub_mod(unsigned int a, unsigned int b) { return ((a % MOD) - (b % MOD) + MOD) % MOD; }
-int mul_mod(unsigned int a, unsigned int b) { return ((a % MOD) * 1LL * (b % MOD)) % MOD; }
-int lcm(unsigned int a, unsigned int b) { return a * 1LL * b / __gcd(a, b); }
+void dbg_out() { cerr << endl; }
+template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
+template<typename T> void dbg_out(vector<T> a) { for (auto c : a) cerr << ' ' << c; cerr << endl; };
+template<typename T> void dbg_out(T a[]) { for (auto c : a) cerr << ' ' << c; cerr << endl; };
+template<typename T> void dbg_out(vector<T> a, int n) { FOR (i, 0, n - 1) cerr << ' ' << a[i]; cerr << endl; };
+template<typename T> void dbg_out(T a[], int n) { FOR (i, 0, n - 1) cerr << ' ' << a[i]; cerr << endl; };
+template<typename T> void dbg_out(vector<T> a, int u, int v) { FOR (i, u, v) cerr << ' ' << a[i]; cerr << endl; };
+template<typename T> void dbg_out(T a[], int u, int v) { FOR (i, u, v) cerr << ' ' << a[i]; cerr << endl; };
+
+#if defined(_CRUN) || defined(_RUN)
+#define pd(...) cerr << "(L:" << __LINE__ << "): " << "[" << #__VA_ARGS__ << "] =", dbg_out(__VA_ARGS__)
+#else
+#define pd(...)
+#endif
+
+#if defined(_CRUN)
+#define c_input() freopen("input", "r", stdin)
+#define c_output() freopen("output", "r", stdin)
+#else
+#define c_input()
+#define c_output()
+#endif
+
+void ps() {};
+template<typename Head, typename... Tail> void ps(Head H, Tail... T) { cout << H; ps(T...); }; 
+template<typename T> void ps(vector<T> a, int n) { FOR (i, 0, n - 1) cout << a[i] << ' '; }; 
+template<typename T> void ps(T a[], int n) { FOR (i, 0, n - 1) cout << a[i] << ' '; }; 
+
+ll add_mod(ll a, ll b) { return ((a % MOD) + (b % MOD)) % MOD; }
+ll sub_mod(ll a, ll b) { return ((a % MOD) - (b % MOD) + MOD) % MOD; }
+ll mul_mod(ll a, ll b) { return ((a % MOD) * (b % MOD)) % MOD; }
+ll lcm(ll a, ll b) { return a * b / __gcd(a, b); }
 
 void solve();
-//-----------------------------------------------------//
-//                                                     //
-// FB: https://facebook.com/tgbaodeeptry               //
-//                                                     //
-// From Viet Nam with Love :D                          //
-//                                                     //  
-//-----------------------------------------------------//
+//}}
 
 int main() {
-    fast_io;
+  fast_io();
 
-    #ifdef _CRUN 
-        //freopen("input", "r", stdin);
-    #endif
-
-    int t = 1; 
-    //cin >> t; 
-    while (t--)
-        solve();
+  int T = 1;
+  //re(T); 
+  FOR (i, 1, T) solve();
 }
 
-int n, d, m, s;
 
 void solve() {
-    read(n, d);
+  int n, d;
+  re(n, d);
 
-    pair<int, int> p[n];
-    int factor[n], factor_n[n];
-    ll sum[n];
-    vector<pair<int, int>> ans;
+  pair<int, int> a[n];
+  for (auto &v : a)
+    re(v.FF, v.SS);
 
-    For (i, 0, n - 1) {
-        read(m, s);
+  sort(a, a + n);
 
-        p[i].F = m;
-        p[i].S = i;
-        factor[i] = s;
-    }
+  ll pre[n];
+  pre[0] = a[0].SS;
+  FOR (i, 1, n - 1)
+    pre[i] = 1LL * pre[i-1] + a[i].SS;
 
-    sort(p, p + n, [](pair<int, int> a, pair<int, int> b) { return a.F < b.F; });
+  ll ans = 0;
 
-    For (i, 0, n - 1) {
-        factor_n[i] = factor[p[i].S];
-        
-        if (i) 
-            sum[i] = sum[i-1] + (ll) factor_n[i];
-        else
-            sum[i] = factor_n[i];
-    }
+  for (int i = 0; i < n; ++i) {
+    auto j = prev(lower_bound(a, a + n, make_pair(a[i].FF + d, INT_MIN))) - a;
+    ll s = pre[j] - (i ? pre[i-1] : 0);
     
-    // 0 75 75 100
-
-    For (i, 0, n - 1) {
-        auto next = lower_bound(p + i + 1, p + n, make_pair(p[i].F + d, INT_MIN));
-        int j;
-
-        if (next == (p + n))
-            j = n - 1;
-        else
-            j = distance(p + i, next) + i - 1;
-
-        ans.ep(i, j);
+    if (s > ans) {
+      ans = s;
     }
+  }
 
-    ll ma = 0;
-    for (auto p : ans) {
-        if (p.F)
-            ma = max(ma, sum[p.S] - sum[p.F - 1]);
-        else
-            ma = max(ma, sum[p.S]);
-    }
-
-    cout << ma;
+  ps(ans);
 }
