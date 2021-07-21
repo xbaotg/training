@@ -1,2 +1,2 @@
 #!bin/bash
-cd ~/Documents/ && git add -A && git commit -m 'updated' && git push origin master
+cd /home/tgbao2703/Documents/ && git add -A && git commit -m 'updated' && git push origin master
