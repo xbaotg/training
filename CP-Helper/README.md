@@ -1,3 +1,3 @@
-# CodeForces-Helper
+# CP-Helper
 
 Coming soon!
