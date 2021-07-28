@@ -1,7 +1,7 @@
 // template {{{
 
 /*
- * Created at: $DATE
+ * Created at: 07/24/21 21:42:14
  * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
@@ -20,7 +20,6 @@ using namespace std;
 
 using llong = long long;
 using vi = vector<int>;
-using vvi = vector<vector<int>>;
 using vll = vector<llong>;
 using pii = pair<int, int>;
 
@@ -30,7 +29,7 @@ llong LINF = LLONG_MAX;
 double ESP = 1e-9;
 
 void dbg_out() { cerr << nl; };
-void psout() {};
+void psout() { cout << nl; };
 template < typename T > void read(T & x) { cin >> x; };
 template < typename T > void read(vector <T > & v, int n) { for (int i = 0; i < n; ++i) cin >> v[i]; };
 template < typename T > void read(vector < T > & v, int f, int t) { for (int i = f; i <= t; ++i) cin >> v[i]; };
@@ -71,6 +70,13 @@ template < typename Y, typename Z > void psout(pair < Y, Z > p) { cout << p.firs
 #define c_output()
 #endif
 
+int add_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a + b) % MOD; }
+int sub_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a - b + MOD) % MOD; }
+int mul_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (llong(a) * b) % MOD; }
+llong cpow_mod(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans = mul_mod(ans, a); a = mul_mod(a, a); b >>= 1; }; return ans; };
+llong lcm(llong a, llong b) { return a * b / __gcd(a, b); }
+llong cpow(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans *= a; a *= a; b >>= 1; }; return ans; };
+
 void solve();
 void init();
 bool TESTS = false;
@@ -79,6 +85,37 @@ int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i
 // }}}
 void init() {}
 
-void solve() {
+int n, m;
+vector<vi> G;
+vector<int> dp;
 
+int DP(int u) {
+  if (~dp[u]) {
+    return dp[u];
+  }
+
+  if (u == n) {
+    return 1;
+  }
+
+  int ret = 0;
+  for (auto &v : G[u]) {
+    ret = (ret + DP(v)) % MOD;
+  }
+
+  return dp[u] = ret;
+}
+
+void solve() {
+  read(n, m);
+
+  G.resize(n + 1);
+
+  for (int i = 0; i < m; ++i) {
+    int u, v; read(u, v);
+    G[u].push_back(v);
+  }
+
+  dp.assign(n + 1, -1);
+  ps(DP(1));
 }

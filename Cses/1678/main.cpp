@@ -1,7 +1,7 @@
 // template {{{
 
 /*
- * Created at: $DATE
+ * Created at: 07/25/21 13:01:43
  * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
@@ -30,7 +30,7 @@ llong LINF = LLONG_MAX;
 double ESP = 1e-9;
 
 void dbg_out() { cerr << nl; };
-void psout() {};
+void psout() { cout << nl; };
 template < typename T > void read(T & x) { cin >> x; };
 template < typename T > void read(vector <T > & v, int n) { for (int i = 0; i < n; ++i) cin >> v[i]; };
 template < typename T > void read(vector < T > & v, int f, int t) { for (int i = f; i <= t; ++i) cin >> v[i]; };
@@ -79,6 +79,57 @@ int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i
 // }}}
 void init() {}
 
-void solve() {
+int n, m;
+vector<vector<int>> G;
+vector<int> co, pa;
 
+void dfs(int u, int p) {
+  co[u] = 1;
+  pa[u] = p;
+
+  for (auto &v : G[u]) {
+    if (co[v] == 0) {
+      dfs(v, u);
+    } else if (co[v] == 1) {
+      // found
+      pa[v] = u;
+      vector<int> ret;
+
+      for (int cur = v;; cur = pa[cur]) {
+        ret.push_back(cur);
+
+        if (cur == v && sz(ret) > 2) {
+          break;
+        }
+      }
+
+      reverse(all(ret));
+      ps(sz(ret));
+      ps(ret);
+
+      exit(0);
+    }
+  }
+
+  co[u] = 2;
+}
+
+void solve() {
+  read(n, m);
+  G.resize(n + 1);
+  for (int i = 0; i < m; ++i) {
+    int u, v; read(u, v);
+    G[u].push_back(v);
+  }
+
+  co.assign(n + 1, 0);
+  pa.assign(n + 1, 0);
+
+  for (int i = 1; i <= n; ++i) {
+    if (!co[i]) {
+      dfs(i, 0);
+    }
+  }
+
+  ps("IMPOSSIBLE");
 }

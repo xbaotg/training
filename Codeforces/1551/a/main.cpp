@@ -1,8 +1,8 @@
 // template {{{
 
 /*
- * Created at: $DATE
- * Problem: $LINK
+ * Created at: 07/24/21 22:27:06
+ * Problem: https://codeforces.com/contest/1551/problem/A
  *
  * FB: https://facebook.com/tgbaodeeptry
  * From Viet Nam with Love :D
@@ -20,7 +20,6 @@ using namespace std;
 
 using llong = long long;
 using vi = vector<int>;
-using vvi = vector<vector<int>>;
 using vll = vector<llong>;
 using pii = pair<int, int>;
 
@@ -71,14 +70,31 @@ template < typename Y, typename Z > void psout(pair < Y, Z > p) { cout << p.firs
 #define c_output()
 #endif
 
+int add_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a + b) % MOD; }
+int sub_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a - b + MOD) % MOD; }
+int mul_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (llong(a) * b) % MOD; }
+llong cpow_mod(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans = mul_mod(ans, a); a = mul_mod(a, a); b >>= 1; }; return ans; };
+llong lcm(llong a, llong b) { return a * b / __gcd(a, b); }
+llong cpow(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans *= a; a *= a; b >>= 1; }; return ans; };
+
 void solve();
 void init();
 bool TESTS = false;
 
 int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i <= T; ++i) solve(); }
 // }}}
-void init() {}
+void init() {
+  TESTS = true;
+}
 
 void solve() {
+  int n; read(n);
 
+  if (n % 3 == 0) {
+    ps(n / 3, " ", n / 3);
+  } else if (n % 3 == 1) {
+    ps((n - 1) / 3 + 1, " ", (n - 1) / 3);
+  } else {
+    ps((n - 2) / 3, " ", (n - 2) / 3 + 1);
+  }
 }

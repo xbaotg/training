@@ -1,18 +1,19 @@
 // template {{{
 
 /*
- * Created at: $DATE
+ * Created at: 07/26/21 11:17:55
  * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
  * From Viet Nam with Love :D
  */
-
 #include "bits/stdc++.h"
+#include <algorithm>
+#include <vector>
 using namespace std;
 
 #define fast_io() ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define sz(x) ((int)x.size())
+#define sz(x) ((int)x.size()) 
 #define all(x) (x).begin(), (x).end()
 #define F first
 #define S second
@@ -80,5 +81,5 @@ int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i
 void init() {}
 
 void solve() {
-
+  vector<int> a;
 }

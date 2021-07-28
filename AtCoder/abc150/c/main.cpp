@@ -1,8 +1,8 @@
 // template {{{
 
 /*
- * Created at: $DATE
- * Problem: $LINK
+ * Created at: 07/23/21 23:04:38
+ * Problem: https://atcoder.jp/contests/abc150/tasks/abc150_c
  *
  * FB: https://facebook.com/tgbaodeeptry
  * From Viet Nam with Love :D
@@ -20,7 +20,6 @@ using namespace std;
 
 using llong = long long;
 using vi = vector<int>;
-using vvi = vector<vector<int>>;
 using vll = vector<llong>;
 using pii = pair<int, int>;
 
@@ -30,7 +29,7 @@ llong LINF = LLONG_MAX;
 double ESP = 1e-9;
 
 void dbg_out() { cerr << nl; };
-void psout() {};
+void psout() { cout << nl; };
 template < typename T > void read(T & x) { cin >> x; };
 template < typename T > void read(vector <T > & v, int n) { for (int i = 0; i < n; ++i) cin >> v[i]; };
 template < typename T > void read(vector < T > & v, int f, int t) { for (int i = f; i <= t; ++i) cin >> v[i]; };
@@ -71,6 +70,13 @@ template < typename Y, typename Z > void psout(pair < Y, Z > p) { cout << p.firs
 #define c_output()
 #endif
 
+int add_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a + b) % MOD; }
+int sub_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (a - b + MOD) % MOD; }
+int mul_mod(int a, int b) { if (a >= MOD) a %= MOD; if (b >= MOD) b %= MOD; return (llong(a) * b) % MOD; }
+llong cpow_mod(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans = mul_mod(ans, a); a = mul_mod(a, a); b >>= 1; }; return ans; };
+llong lcm(llong a, llong b) { return a * b / __gcd(a, b); }
+llong cpow(llong a, llong b) { llong ans = 1; while (b) { if (b & 1) ans *= a; a *= a; b >>= 1; }; return ans; };
+
 void solve();
 void init();
 bool TESTS = false;
@@ -80,5 +86,22 @@ int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i
 void init() {}
 
 void solve() {
+  int n; read(n);
+  vi p(n), q(n); read(p, n); read(q, n);
+  vi cur(n); iota(all(cur), 1);
 
+  int a = 0, b = 0, s = 1;
+  do {
+    if (equal(all(p), cur.begin())) {
+      a = s;
+    }
+
+    if (equal(all(q), cur.begin())) {
+      b = s;
+    }
+
+    ++s;
+  } while (next_permutation(all(cur)));
+
+  ps(abs(a - b));
 }
