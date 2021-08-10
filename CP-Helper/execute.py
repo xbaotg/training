@@ -13,7 +13,7 @@ if len(args):
     testcases_dir = os.path.join(path, "testcases")
 
     if (custom_input == "true") or (
-            os.path.exists(testcases_dir) and os.path.exists(os.path.join(path, name_file_main))):
+        os.path.exists(testcases_dir) and os.path.exists(os.path.join(path, name_file_main))):
         command_execute = []
         path_file_execute = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,8 +42,8 @@ if len(args):
         if ok:
             try:
                 subprocess.check_call(command_execute[0].strip()
-                                      .replace("%main-file%", os.path.join(path, name_file_main))
-                                      .replace("%execute-file%", os.path.join(path, "main.out")).strip().split(" "))
+                    .replace("%main-file%", os.path.join(path, name_file_main))
+                    .replace("%execute-file%", os.path.join(path, "main.out")).strip().split(" "))
             except subprocess.CalledProcessError as e:
                 sys.exit()
 
@@ -59,8 +59,8 @@ if len(args):
 
             try:
                 p = subprocess.run(command_execute[1].strip()
-                                   .replace("%execute-file%", path_execute_file), universal_newlines=True,
-                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+                    .replace("%execute-file%", path_execute_file), universal_newlines=True,
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
             except Exception as e:
                 print(colorama.Fore.RED + "RE" + colorama.Fore.RESET)
                 print(">> " + e.stderr)
@@ -76,7 +76,7 @@ if len(args):
             if len(err):
                 print(colorama.Fore.YELLOW + "MESSAGE: " + colorama.Fore.RESET)
                 print("\n".join(err))
-
+                
         else:
             for i in range(1, 100):
                 if os.path.exists(os.path.join(testcases_dir, f"sample-input-{i}")):
@@ -97,16 +97,16 @@ if len(args):
                     start_time = time.time()
                     try:
                         p = subprocess.run(command_execute[1].strip()
-                                           .replace("%execute-file%", path_execute_file), timeout=2,
-                                           universal_newlines=True, input="\n".join(inputs), stdout=subprocess.PIPE,
-                                           stderr=subprocess.PIPE, shell=True, check=True)
+                            .replace("%execute-file%", path_execute_file), timeout=2,
+                            universal_newlines=True, input="\n".join(inputs), stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE, shell=True, check=True)
 
                     except subprocess.TimeoutExpired as e:
                         print(colorama.Fore.RED + "TLE" + colorama.Fore.RESET)
                         break
                     except Exception as e:
                         print(colorama.Fore.RED + "RE" + colorama.Fore.RESET)
-                        print(">> " + e.stderr)
+                        print(">> " + str(e))
                         break
 
                     end_time = time.time()
@@ -136,10 +136,13 @@ if len(args):
                         break
                 else:
                     break
+
+        #  input("Press the <ENTER> key to continue...")
+        #  os.system("pause")
     else:
         print("Problem's directory is invalid")
         sys.exit(0)
 
 else:
     print("Input problem's directory")
-    sys.exit(0)
+sys.exit(0)

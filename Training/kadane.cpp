@@ -10,6 +10,7 @@ int main() {
         cur = max(0, cur + a[i]);
         ans = max(ans, cur);
     }
+    a
 
     cout << ans;
 }

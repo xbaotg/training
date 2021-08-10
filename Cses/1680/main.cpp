@@ -1,7 +1,7 @@
 // template {{{
 
 /*
- * Created at: 07/31/21 21:37:17
+ * Created at: 08/06/21 10:51:05
  * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
@@ -78,75 +78,54 @@ bool TESTS = false;
 
 int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i <= T; ++i) solve(); }
 // }}}
-void init() {}
+void init() {
+  c_input();
+}
 
-struct ST {
-  vector<int> st;
+int n, m;
+vector<vector<int>> G;
+vector<int> dp, ch;
 
-  void init(int n) {
-    st.resize(n << 2);
+int DP(int u) {
+  if (u == n) return 1;
+  if (~dp[u]) return dp[u];
+
+  int cur = -INF;
+  for (auto &v : G[u]) {
+    int dep = DP(v);
+    if (dep > cur) {
+      ch[u] = v;
+      cur = dep;
+    }
   }
 
-  void update(int no, int l, int r, int i, int v) {
-    if (i < l || i > r) 
-      return;
-
-    if (l == r) {
-      st[no] = v;
-      return;
-    }
-
-    int m = (l + r) >> 1;
-    update(no << 1, l, m, i, v); 
-    update(no << 1 | 1, m + 1, r, i, v); 
-
-    st[no] = max(st[no << 1], st[no << 1 | 1]);
-  }
-
-  int get(int no, int l, int r, int u, int v) {
-    if (u <= l && r <= v) {
-      return st[no];
-    }
-
-    if (l > v || r < u) {
-      return 0;
-    }
-
-    int m = (l + r) >> 1;
-    return max(get(no << 1, l, m, u, v), get(no << 1 | 1, m + 1, r, u, v));
-  }
-};
+  return dp[u] = cur ^ -INF ? cur + 1 : -INF;
+}
 
 void solve() {
-  int n; read(n);
-  vector<int> a(n); read(a, n);
+  read(n, m);
+  G.resize(n + 1);
+  dp.assign(n + 1, -1);
+  ch.assign(n + 1, -1);
 
-  // compress
-  vector<pair<int, int>> t;
-  for (int i = 0; i < n; ++i) {
-    t.emplace_back(a[i], i);
+  for (int i = 0; i < m; ++i) {
+    int u, v; read(u, v);
+    G[u].push_back(v);
   }
-  sort(all(t));
 
-  int cur = 0, l = -1;
-  for (auto &p : t) {
-    if (p.F != l) {
-      a[p.S] = ++cur;
-      l = p.F;
+  DP(1);
+
+  if (~ch[1]) {
+    int c = 1;
+    vi ret;
+    while (c ^ n) {
+      ret.push_back(c);
+      c = ch[c];
     }
-  }
-
-  pd(a);
-
-  // core
-  ST st;
-  st.init(cur);
-
-  for (int i = 0; i < n; ++i) {
-    st.update(1, 1, cur, a[i], i + 1);
-  }
-
-  for (auto &v : a) {
-    ps(st.get(1, 1, cur, 1, v - 1), " ");
+    ret.push_back(n);
+    ps(sz(ret), nl);
+    ps(ret);
+  } else {
+    ps("IMPOSSIBLE");
   }
 }

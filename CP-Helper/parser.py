@@ -3,7 +3,6 @@ import sys
 
 URL = ""
 
-
 def read_URL_from_input():
     return input("Link: ")
 
@@ -263,7 +262,7 @@ def process():
 
         if len(sys.argv) > 2:
             if sys.argv[2] == "-o":
-                os.system("vi " + os.path.abspath(os.path.join(data_dir, "main.cpp")))
+                os.system("nvim " + os.path.abspath(os.path.join(data_dir, "main.cpp")))
 
 process()
 

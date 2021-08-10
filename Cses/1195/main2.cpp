@@ -1,7 +1,7 @@
 // template {{{
 
 /*
- * Created at: 07/31/21 21:37:17
+ * Created at: 08/01/21 21:08:23
  * Problem: $LINK
  *
  * FB: https://facebook.com/tgbaodeeptry
@@ -80,73 +80,65 @@ int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i
 // }}}
 void init() {}
 
-struct ST {
-  vector<int> st;
-
-  void init(int n) {
-    st.resize(n << 2);
-  }
-
-  void update(int no, int l, int r, int i, int v) {
-    if (i < l || i > r) 
-      return;
-
-    if (l == r) {
-      st[no] = v;
-      return;
-    }
-
-    int m = (l + r) >> 1;
-    update(no << 1, l, m, i, v); 
-    update(no << 1 | 1, m + 1, r, i, v); 
-
-    st[no] = max(st[no << 1], st[no << 1 | 1]);
-  }
-
-  int get(int no, int l, int r, int u, int v) {
-    if (u <= l && r <= v) {
-      return st[no];
-    }
-
-    if (l > v || r < u) {
-      return 0;
-    }
-
-    int m = (l + r) >> 1;
-    return max(get(no << 1, l, m, u, v), get(no << 1 | 1, m + 1, r, u, v));
-  }
+struct Edge {
+  int u, v, w;
 };
 
-void solve() {
-  int n; read(n);
-  vector<int> a(n); read(a, n);
+int n, m;
+vector<Edge> eds;
+vector<vector<pair<int, int>>> G;
 
-  // compress
-  vector<pair<int, int>> t;
-  for (int i = 0; i < n; ++i) {
-    t.emplace_back(a[i], i);
+void dijkstra(vector<llong>& dis, int u) {
+  dis[u] = 0;
+  priority_queue<pair<llong, int>, vector<pair<llong, int>>, greater<pair<llong, int>>> pq;
+
+  pq.push({ 0, u });
+  while (!pq.empty()) {
+    auto cd = pq.top().F; 
+    auto cu = pq.top().S; 
+    pq.pop();
+    
+    if (cd > dis[cu]) {
+      continue;
+    }
+
+    for (auto &p : G[cu]) {
+      auto v = p.F, d = p.S;
+
+      if (dis[v] > dis[cu] + d) {
+        dis[v] = dis[cu] + d;
+        pq.push({ dis[v], v });
+      }
+    }
   }
-  sort(all(t));
+}
 
-  int cur = 0, l = -1;
-  for (auto &p : t) {
-    if (p.F != l) {
-      a[p.S] = ++cur;
-      l = p.F;
+void solve() {
+  read(n, m);
+
+  G.resize(n + 1);
+  for (int i = 0; i < m; ++i) {
+    int u, v, w; read(u, v, w);
+    eds.push_back({ u, v, w });
+    eds.push_back({ v, u, w });
+    G[u].push_back({ v, w });
+    G[v].push_back({ u, w });
+  }
+
+  vector<llong> xuoi (n + 1, LINF), nguoc (n + 1, LINF);
+  dijkstra(xuoi, 1);
+  dijkstra(nguoc, n);
+
+  auto ans = LINF;
+
+  for (auto &e : eds) {
+    auto f = xuoi[e.u];
+    auto s = nguoc[e.v];
+    
+    if (f != LINF && s != LINF) {
+      ans = min(ans, f + s + e.w / 2);
     }
   }
 
-  pd(a);
-
-  // core
-  ST st;
-  st.init(cur);
-
-  for (int i = 0; i < n; ++i) {
-    st.update(1, 1, cur, a[i], i + 1);
-  }
-
-  for (auto &v : a) {
-    ps(st.get(1, 1, cur, 1, v - 1), " ");
-  }
+  ps(ans);
 }

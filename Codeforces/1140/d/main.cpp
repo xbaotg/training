@@ -40,13 +40,13 @@ int main() {
     fast_io;
 
     #ifdef _CRUN 
-        //freopen("input", "r", stdin);
+    //freopen("input", "r", stdin);
     #endif
 
     int t = 1;
     //cin >> t; 
     while (t--)
-        solve();
+    solve();
 }
 
 void solve() {

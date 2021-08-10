@@ -1,15 +1,15 @@
 // template {{{
 
 /*
- * Created at: 07/31/21 21:37:17
- * Problem: $LINK
+ * Created at: 07/29/21 22:47:57
+ * Problem: https://codeforces.com/contest/1311/problem/A
  *
  * FB: https://facebook.com/tgbaodeeptry
  * From Viet Nam with Love :D
  */
 
 #include "bits/stdc++.h"
-#include <vector>
+#include <ctime>
 using namespace std;
 
 #define fast_io() ios_base::sync_with_stdio(false); cin.tie(NULL);
@@ -78,75 +78,28 @@ bool TESTS = false;
 
 int main() { fast_io(); init(); int T = 1; if (TESTS) read(T); for (int i = 1; i <= T; ++i) solve(); }
 // }}}
-void init() {}
-
-struct ST {
-  vector<int> st;
-
-  void init(int n) {
-    st.resize(n << 2);
-  }
-
-  void update(int no, int l, int r, int i, int v) {
-    if (i < l || i > r) 
-      return;
-
-    if (l == r) {
-      st[no] = v;
-      return;
-    }
-
-    int m = (l + r) >> 1;
-    update(no << 1, l, m, i, v); 
-    update(no << 1 | 1, m + 1, r, i, v); 
-
-    st[no] = max(st[no << 1], st[no << 1 | 1]);
-  }
-
-  int get(int no, int l, int r, int u, int v) {
-    if (u <= l && r <= v) {
-      return st[no];
-    }
-
-    if (l > v || r < u) {
-      return 0;
-    }
-
-    int m = (l + r) >> 1;
-    return max(get(no << 1, l, m, u, v), get(no << 1 | 1, m + 1, r, u, v));
-  }
-};
+void init() {
+  TESTS = true;
+}
 
 void solve() {
-  int n; read(n);
-  vector<int> a(n); read(a, n);
+  int a, b; read(a, b);
 
-  // compress
-  vector<pair<int, int>> t;
-  for (int i = 0; i < n; ++i) {
-    t.emplace_back(a[i], i);
-  }
-  sort(all(t));
-
-  int cur = 0, l = -1;
-  for (auto &p : t) {
-    if (p.F != l) {
-      a[p.S] = ++cur;
-      l = p.F;
+  if (a == b) {
+    ps(0);
+  } else if (a > b) {
+    if ((a & 1) == (b & 1)) {
+      ps(1);
+    } else {
+      ps(2);
+    }
+  } else {
+    if ((a & 1) == (b & 1)) {
+      ps(2);
+    } else {
+      ps(1);
     }
   }
 
-  pd(a);
-
-  // core
-  ST st;
-  st.init(cur);
-
-  for (int i = 0; i < n; ++i) {
-    st.update(1, 1, cur, a[i], i + 1);
-  }
-
-  for (auto &v : a) {
-    ps(st.get(1, 1, cur, 1, v - 1), " ");
-  }
+  ps(nl);
 }
