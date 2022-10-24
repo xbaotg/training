@@ -1,8 +1,17 @@
 <head>
   <title>Traning</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"
+  ></script>
 </head>
 
 <body>
@@ -10,28 +19,37 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <h2 class="text-center my-4">Codeforces</h2>
-        <div id="codeforces"></div>
+        <div id="codeforces">Connecting ...</div>
       </div>
     </div>
 
     <div class="row justify-content-center">
       <div class="col-12">
         <h2 class="text-center my-4">Cses</h2>
-        <div id="cses"></div>
+        <div id="cses">Connecting ...</div>
       </div>
     </div>
-
 
     <div class="row justify-content-center">
       <div class="col-12">
         <h2 class="text-center my-4">AtCoder</h2>
-        <div id="atcoder"></div>
+        <div id="atcoder">Connecting ...</div>
       </div>
     </div>
   </div>
 
   <script>
     const url = "https://api-training.xbaotg.com/training/";
+
+    setTimeout(() => {
+      for (let v of ["cses", "codeforces", "atcoder"]) {
+        t = $("#" + v).text();
+
+        if (t == "Connecting ...") {
+          $("#" + v).text("TimeOut: Retry after 5 minutues");
+        }
+      }
+    }, 5000);
 
     for (let v of ["cses", "codeforces", "atcoder"]) {
       fetch(url + v)
